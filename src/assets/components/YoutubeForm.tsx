@@ -10,7 +10,8 @@ type FormValues = {
   social: {
     twitter: string
     facebook: string
-  }
+  },
+  phoneNumbers: string[],
 }
 
 export const YoutubeForm = () => {
@@ -22,7 +23,8 @@ export const YoutubeForm = () => {
       social: {
         twitter: "",
         facebook: "",
-      }
+      },
+      phoneNumbers: ["", ""]
     }
     // jika ingin mendapatkan value secara dynamic
     // defaultValues: async () => {
@@ -102,24 +104,22 @@ export const YoutubeForm = () => {
         
         <div className="form-control">
           <label htmlFor="twitter">Twitter</label>
-          <input 
-            type="text" 
-            id='twitter' 
-            {...register('social.twitter', {
-              required: "Twitter is required"
-            })} 
-          />
+          <input type="text" id='twitter' {...register('social.twitter')} />
         </div>
         
         <div className="form-control">
           <label htmlFor="facebook">Facebook</label>
-          <input 
-            type="text" 
-            id='facebook' 
-            {...register('social.facebook', {
-              required: "Facebook is required"
-            })} 
-          />
+          <input type="text" id='facebook' {...register('social.facebook')} />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="primary-phone">Primary phone number</label>
+          <input type="text" id='primary-phone' {...register('phoneNumbers.0')} />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="secondary-phone">Secondary phone number</label>
+          <input type="text" id='secondary-phone' {...register('phoneNumbers.1')} />
         </div>
 
         <button>Submit</button>
