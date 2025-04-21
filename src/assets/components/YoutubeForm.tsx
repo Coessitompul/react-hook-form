@@ -6,7 +6,11 @@ let renderCount = 0;
 type FormValues = {
   username: string;
   email: string;
-  channel: string
+  channel: string;
+  social: {
+    twitter: string
+    facebook: string
+  }
 }
 
 export const YoutubeForm = () => {
@@ -15,6 +19,10 @@ export const YoutubeForm = () => {
       username: "Batman",
       email: "",
       channel: "",
+      social: {
+        twitter: "",
+        facebook: "",
+      }
     }
     // jika ingin mendapatkan value secara dynamic
     // defaultValues: async () => {
@@ -90,6 +98,28 @@ export const YoutubeForm = () => {
             })} 
           />
           <p className='error'>{errors.channel?.message}</p>
+        </div>
+        
+        <div className="form-control">
+          <label htmlFor="twitter">Twitter</label>
+          <input 
+            type="text" 
+            id='twitter' 
+            {...register('social.twitter', {
+              required: "Twitter is required"
+            })} 
+          />
+        </div>
+        
+        <div className="form-control">
+          <label htmlFor="facebook">Facebook</label>
+          <input 
+            type="text" 
+            id='facebook' 
+            {...register('social.facebook', {
+              required: "Facebook is required"
+            })} 
+          />
         </div>
 
         <button>Submit</button>
