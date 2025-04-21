@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useFieldArray } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 
 let renderCount = 0;
@@ -12,6 +12,9 @@ type FormValues = {
     facebook: string
   },
   phoneNumbers: string[],
+  phNumbers: {
+    number: string;
+  }[],
 }
 
 export const YoutubeForm = () => {
@@ -24,7 +27,8 @@ export const YoutubeForm = () => {
         twitter: "",
         facebook: "",
       },
-      phoneNumbers: ["", ""]
+      phoneNumbers: ["", ""],
+      phNumbers: [{ number: "" }]
     }
     // jika ingin mendapatkan value secara dynamic
     // defaultValues: async () => {
@@ -42,6 +46,11 @@ export const YoutubeForm = () => {
   // const { name, ref, onChange, onBlur } = register("username"); // ini jika meggunakan cara manual,
 
   const { errors } = formState;
+
+  const { fields, append, remove } = useFieldArray({ // fields, append ini adalah property dari library react hook formnya
+    name: "phNumbers",
+    control
+  });
 
   const onSubmit = (data: FormValues) => {
     console.log('Form submitted', data)
@@ -120,6 +129,24 @@ export const YoutubeForm = () => {
         <div className="form-control">
           <label htmlFor="secondary-phone">Secondary phone number</label>
           <input type="text" id='secondary-phone' {...register('phoneNumbers.1')} />
+        </div>
+
+        <div>
+          <label>List of phone numbers</label>
+          <div>
+            {
+              fields.map((field, index) => {
+                return (
+                  <div className="form-control" key={field.id}>
+                    <input type="text" {...register(`phNumbers.${index}.number` as const)} /> {/*  as const untuk keperluan typescript supaya ts senang */}
+                    {index > 0 && (
+                      <button type='button' onClick={() => remove(index)}>Remove</button>
+                    )}
+                  </div>
+                );
+              })}
+              <button type='button' onClick={() => append({ number: "" })}>Add phone number</button>
+          </div>
         </div>
 
         <button>Submit</button>
