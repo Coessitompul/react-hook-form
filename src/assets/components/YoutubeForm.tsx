@@ -10,11 +10,13 @@ type FormValues = {
   social: {
     twitter: string
     facebook: string
-  },
-  phoneNumbers: string[],
+  };
+  phoneNumbers: string[];
   phNumbers: {
     number: string;
-  }[],
+  }[];
+  age: number;
+  dob: Date;
 }
 
 export const YoutubeForm = () => {
@@ -28,7 +30,9 @@ export const YoutubeForm = () => {
         facebook: "",
       },
       phoneNumbers: ["", ""],
-      phNumbers: [{ number: "" }]
+      phNumbers: [{ number: "" }],
+      age: 0,
+      dob: new Date(),
     }
     // jika ingin mendapatkan value secara dynamic
     // defaultValues: async () => {
@@ -147,6 +151,32 @@ export const YoutubeForm = () => {
               })}
               <button type='button' onClick={() => append({ number: "" })}>Add phone number</button>
           </div>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="age">Age</label>
+          <input 
+            type="number" 
+            id='age' 
+            {...register('age', {
+              valueAsNumber: true,
+              required: "Age is required"
+            })} 
+          />
+          <p className='error'>{errors.age?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="dob">Date of birth</label>
+          <input 
+            type="date" 
+            id='dob' 
+            {...register('dob', {
+              valueAsDate: true,
+              required: "Date of birth is required"
+            })} 
+          />
+          <p className='error'>{errors.dob?.message}</p>
         </div>
 
         <button>Submit</button>
