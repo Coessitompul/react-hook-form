@@ -46,7 +46,15 @@ export const YoutubeForm = () => {
     //   }
     // }
   });
-  const { register, control, handleSubmit, formState, watch, getValues } = form;
+  const { 
+    register, 
+    control, 
+    handleSubmit, 
+    formState, 
+    watch, 
+    getValues, 
+    setValue, 
+  } = form;
   // handleSubmit berasal dari library form, pelajari lebih banyak lagi fungsi2 apa saja yang ada didalamnya untuk bisa digunakan
   // const { name, ref, onChange, onBlur } = register("username"); // ini jika meggunakan cara manual,
 
@@ -66,6 +74,17 @@ export const YoutubeForm = () => {
     // console.log("Get values ", getValues('social'));
     // console.log("Get values ", getValues('social.twitter'));
     console.log("Get values ", getValues(['username', 'channel']));
+  }
+
+  const handleSetValues = () => {
+    // cara 1
+    // setValue("username", "");
+    // cara 2
+    setValue("username", "", {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
   }
 
   // Start watch
@@ -202,6 +221,7 @@ export const YoutubeForm = () => {
 
         <button>Submit</button>
         <button type='button' onClick={handleGetValues}>Get Values</button>
+        <button type='button' onClick={handleSetValues}>Set Value</button>
       </form>
       <DevTool control={control} /> 
     </div>
