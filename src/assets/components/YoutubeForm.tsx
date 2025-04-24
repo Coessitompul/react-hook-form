@@ -56,7 +56,8 @@ export const YoutubeForm = () => {
     watch, 
     getValues, 
     setValue,
-    reset
+    reset,
+    trigger
   } = form;
   // handleSubmit berasal dari library form, pelajari lebih banyak lagi fungsi2 apa saja yang ada didalamnya untuk bisa digunakan
   // const { name, ref, onChange, onBlur } = register("username"); // ini jika meggunakan cara manual,
@@ -270,6 +271,8 @@ export const YoutubeForm = () => {
         <button type='button' onClick={() => reset()}>Reset</button>
         <button type='button' onClick={handleGetValues}>Get Values</button>
         <button type='button' onClick={handleSetValues}>Set Value</button>
+        <button type='button' onClick={() => trigger()}>Validate All</button>
+        <button type='button' onClick={() => trigger("channel")}>Validate Channel</button>
       </form>
       <DevTool control={control} /> 
     </div>
