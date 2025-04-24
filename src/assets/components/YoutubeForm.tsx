@@ -1,5 +1,6 @@
 import { useForm, useFieldArray } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
+import { useEffect } from 'react';
 
 let renderCount = 0;
 
@@ -45,7 +46,7 @@ export const YoutubeForm = () => {
     //   }
     // }
   });
-  const { register, control, handleSubmit, formState } = form;
+  const { register, control, handleSubmit, formState, watch } = form;
   // handleSubmit berasal dari library form, pelajari lebih banyak lagi fungsi2 apa saja yang ada didalamnya untuk bisa digunakan
   // const { name, ref, onChange, onBlur } = register("username"); // ini jika meggunakan cara manual,
 
@@ -60,10 +61,21 @@ export const YoutubeForm = () => {
     console.log('Form submitted', data)
   }
 
+  useEffect(() => {
+    const subscription = watch((value) => {
+      console.log(value)
+    });
+    return () =>  subscription.unsubscribe();
+  }, [watch]);
+
+  // const watchUsername = watch("username");
+  const watchForm = watch(["username", "email"]);
+
   renderCount++;
   return (
     <div>
       <h1>Youtube count ({renderCount/2})</h1>
+      <h2>Watched value: {watchForm}</h2>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="form-control">
           <label htmlFor="username">Username</label>
