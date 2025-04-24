@@ -58,7 +58,9 @@ export const YoutubeForm = () => {
   // handleSubmit berasal dari library form, pelajari lebih banyak lagi fungsi2 apa saja yang ada didalamnya untuk bisa digunakan
   // const { name, ref, onChange, onBlur } = register("username"); // ini jika meggunakan cara manual,
 
-  const { errors } = formState;
+  const { errors, touchedFields, dirtyFields, isDirty } = formState;
+
+  console.log({touchedFields, dirtyFields, isDirty });
 
   const { fields, append, remove } = useFieldArray({ // fields, append ini adalah property dari library react hook formnya
     name: "phNumbers",
