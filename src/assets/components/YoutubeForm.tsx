@@ -34,7 +34,7 @@ export const YoutubeForm = () => {
       phNumbers: [{ number: "" }],
       age: 0,
       dob: new Date(),
-    }
+    },
     // jika ingin mendapatkan value secara dynamic
     // defaultValues: async () => {
     //   const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
@@ -45,6 +45,8 @@ export const YoutubeForm = () => {
     //     channel: ""
     //   }
     // }
+    mode: "onChange", // onSubmit (default), onBlur, onTouched, all, onChange [lebih baik menggunakan onBlur, onTouched dari pada onChange karena akan sangat mempengaruhi performace impact]
+    // jika kamu memerlukan kombinasi onBlur, onTouched, dan onChange gunakan all
   });
   const { 
     register, 
