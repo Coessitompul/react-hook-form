@@ -157,9 +157,20 @@ export const YoutubeForm = () => {
           <p className='error'>{errors.channel?.message}</p>
         </div>
         
+        {/* <div className="form-control">
+          <label htmlFor="twitter">Twitter</label>
+          <input type="text" id='twitter' {...register('social.twitter', {
+            disabled: true,
+            required: "Enter twitter profile"
+          })} />
+        </div> */}
+
         <div className="form-control">
           <label htmlFor="twitter">Twitter</label>
-          <input type="text" id='twitter' {...register('social.twitter')} />
+          <input type="text" id='twitter' {...register('social.twitter', {
+            disabled: watch("channel") === "",
+            required: "Enter twitter profile"
+          })} />
         </div>
         
         <div className="form-control">
