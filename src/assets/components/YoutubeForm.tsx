@@ -53,12 +53,23 @@ export const YoutubeForm = () => {
     formState, 
     watch, 
     getValues, 
-    setValue, 
+    setValue,
+    reset
   } = form;
   // handleSubmit berasal dari library form, pelajari lebih banyak lagi fungsi2 apa saja yang ada didalamnya untuk bisa digunakan
   // const { name, ref, onChange, onBlur } = register("username"); // ini jika meggunakan cara manual,
 
-  const { errors, touchedFields, dirtyFields, isDirty, isValid, isSubmitting, isSubmitted, isSubmitSuccessful, submitCount } = formState;
+  const { 
+    errors, 
+    touchedFields,
+    dirtyFields, 
+    isDirty, 
+    isValid, 
+    isSubmitting, 
+    isSubmitted, 
+    isSubmitSuccessful, 
+    submitCount 
+  } = formState;
 
   console.log({ isSubmitting, isSubmitted, isSubmitSuccessful, submitCount });
   // console.log({touchedFields, dirtyFields, isDirty, isValid });
@@ -93,6 +104,13 @@ export const YoutubeForm = () => {
       shouldTouch: true,
     });
   }
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      // reset from method react-hook-form, untuk membuat form kita menjadi kosong yang diinputkan oleh user. untuk field yang diset mempunyai nilai default akan kembali ke defaultnya
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   // Start watch
   // useEffect(() => {
@@ -237,7 +255,9 @@ export const YoutubeForm = () => {
           <p className='error'>{errors.dob?.message}</p>
         </div>
 
-        <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
+        <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button> 
+        {/* isSubmitting adalah kondisi ketika user klik tombol submit, dan isSubmitting = true ketika submit itu terjadi */}
+        <button type='button' onClick={() => reset()}>Reset</button>
         <button type='button' onClick={handleGetValues}>Get Values</button>
         <button type='button' onClick={handleSetValues}>Set Value</button>
       </form>
