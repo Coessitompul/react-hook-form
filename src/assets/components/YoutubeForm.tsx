@@ -46,7 +46,7 @@ export const YoutubeForm = () => {
     //   }
     // }
   });
-  const { register, control, handleSubmit, formState, watch } = form;
+  const { register, control, handleSubmit, formState, watch, getValues } = form;
   // handleSubmit berasal dari library form, pelajari lebih banyak lagi fungsi2 apa saja yang ada didalamnya untuk bisa digunakan
   // const { name, ref, onChange, onBlur } = register("username"); // ini jika meggunakan cara manual,
 
@@ -61,21 +61,30 @@ export const YoutubeForm = () => {
     console.log('Form submitted', data)
   }
 
-  useEffect(() => {
-    const subscription = watch((value) => {
-      console.log(value)
-    });
-    return () =>  subscription.unsubscribe();
-  }, [watch]);
+  const handleGetValues = () => {
+    // console.log("Get values ", getValues('username'));
+    // console.log("Get values ", getValues('social'));
+    // console.log("Get values ", getValues('social.twitter'));
+    console.log("Get values ", getValues(['username', 'channel']));
+  }
 
-  // const watchUsername = watch("username");
-  const watchForm = watch(["username", "email"]);
+  // Start watch
+  // useEffect(() => {
+  //   const subscription = watch((value) => {
+  //     console.log(value)
+  //   });
+  //   return () =>  subscription.unsubscribe();
+  // }, [watch]);
+
+  // // const watchUsername = watch("username");
+  // const watchForm = watch(["username", "email"]);
+  // End watch
 
   renderCount++;
   return (
     <div>
       <h1>Youtube count ({renderCount/2})</h1>
-      <h2>Watched value: {watchForm}</h2>
+      {/* <h2>Watched value: {watchForm}</h2> */}
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="form-control">
           <label htmlFor="username">Username</label>
@@ -192,6 +201,7 @@ export const YoutubeForm = () => {
         </div>
 
         <button>Submit</button>
+        <button type='button' onClick={handleGetValues}>Get Values</button>
       </form>
       <DevTool control={control} /> 
     </div>
